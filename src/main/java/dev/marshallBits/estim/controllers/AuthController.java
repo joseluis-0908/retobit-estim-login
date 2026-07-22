@@ -1,6 +1,8 @@
 package dev.marshallBits.estim.controllers;
 
 import dev.marshallBits.estim.dto.CreateUserDTO;
+import dev.marshallBits.estim.dto.LoginResponseDTO;
+import dev.marshallBits.estim.dto.LoginUserDTO;
 import dev.marshallBits.estim.dto.SignupResponseDTO;
 import dev.marshallBits.estim.services.UserService;
 import jakarta.validation.Valid;
@@ -19,5 +21,10 @@ public class AuthController {
     @ResponseStatus(HttpStatus.CREATED)
     public SignupResponseDTO signup(@Valid @RequestBody CreateUserDTO createUserDTO) {
         return userService.registerUser(createUserDTO);
+    }
+    @PostMapping("/login")
+    @ResponseStatus(HttpStatus.OK)
+    public LoginResponseDTO login(@Valid @RequestBody LoginUserDTO loginUserDTO) {
+        return userService.authenticateUser(loginUserDTO.getEmail(), loginUserDTO.getPassword());
     }
 }
